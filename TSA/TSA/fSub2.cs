@@ -18,8 +18,41 @@ namespace TSA
         private int nNumber;
         private String msShuffle1;
         private String msShuffle2;
+        private String msShuffle3;
         private int mnItem1, mnItem2;
+        private bool mbShow;
 
+        private String fShuffle(String sText)
+        {
+            Random rnd1 = new Random();
+            int nLength = sText.Length / 2;
+            int nPos;
+            String sText2 = null;
+
+            do
+            {
+                nLength = sText.Length / 2;
+                nPos = rnd1.Next(1, nLength + 1);
+                sText2 = sText2 + sText.Substring(nPos * 2 - 2, 2);
+                sText = sText.Substring(0, nPos * 2 - 2) + sText.Substring(nPos * 2, (nLength - nPos) * 2);
+            } while (sText != "");
+
+            return sText2;
+        }
+        private void fShow(int nMode)
+        {
+            tab1.Visible = false;
+            tab2.Visible = false;
+
+            if (nMode == 1)
+            {
+                tab1.Visible = true;
+            }
+            else
+            {
+                tab2.Visible = true;
+            }
+        }
         private void fClick()
         {
             int nPos = fFree();
@@ -35,14 +68,75 @@ namespace TSA
                 fPlace(sTwo, nPos);
             }
 
+            nPos = fFree2();
+            if (nPos != 0)
+            {
+                sTwo = Convert.ToString(mnItem2);
+                if (sTwo.Length == 1)
+                {
+                    sTwo = "0" + sTwo;
+                }
+                fPlace2(sTwo, nPos);
+            }
+
             fUpdateDisplay();
+            fUpdateStatus();
         }
 
         private void fPlace(String sText,int nPos)
         {
             msShuffle2 = msShuffle2.Substring(0, nPos * 2 - 2) + sText + msShuffle2.Substring(nPos * 2, (36 - nPos) * 2);
         }
+        private void fPlace2(String sText, int nPos)
+        {
+            msShuffle3 = msShuffle3.Substring(0, nPos * 2 - 2) + sText + msShuffle3.Substring(nPos * 2, (16 - nPos) * 2);
+        }
 
+        private void fReplay()
+        {
+            Random rnd1 = new Random();
+            char sLetter1, sLetter2;
+            String sText;
+            String sTwo;
+
+            for (int i = 1; i <= 14; i++)
+            {
+                sLetter1 = (char)(rnd1.Next(1, 27) + 64);
+                sLetter2 = (char)(rnd1.Next(1, 27) + 64);
+                sText = Convert.ToString(sLetter1) + Convert.ToString(sLetter2);
+                _name[i - 1] = sText;
+                sText = null;
+                nNumber = rnd1.Next(1, 10);
+                if (nNumber <= 5)
+                {
+                    sText = sText + "T";
+                }
+                nNumber = rnd1.Next(1, 10);
+                if (nNumber <= 5)
+                {
+                    sText = sText + "S";
+                }
+                nNumber = rnd1.Next(1, 10);
+                if (nNumber <= 5)
+                {
+                    sText = sText + "A";
+                }
+                _tsa[i - 1] = sText;
+                nNumber = rnd1.Next(1, 10);
+                if (nNumber <= 5)
+                {
+                    _length[i - 1] = 0;
+                }
+                else
+                {
+                    _length[i - 1] = rnd1.Next(1, 4001);
+                }
+            }
+
+            fUpdateList();
+            fUpdateDisplay();
+
+        }
         private void fReset()
         {
             Random rnd1 = new Random();
@@ -52,12 +146,18 @@ namespace TSA
 
             msShuffle1 = "010203040506070809100102030405060708091001020304050607080910313233343536";
             msShuffle2 = null;
+            msShuffle3 = null;
 
             sTwo = "00";
             for (int i = 1; i <= 36; i++)
             {
                 msShuffle2 = msShuffle2 + sTwo;
             }
+            for (int i = 1; i <= 16; i++)
+            {
+                msShuffle3 = msShuffle3 + sTwo;
+            }
+
 
             for (int i = 1; i <= 14; i++)
             {
@@ -95,6 +195,7 @@ namespace TSA
 
             fUpdateList();
             fUpdateDisplay();
+            fUpdateStatus();
         }
 
         private int fFree()
@@ -122,6 +223,31 @@ namespace TSA
 
             return nPos;
         }
+        private int fFree2()
+        {
+            Random rnd1 = new Random();
+            int nTries = 0;
+            bool bFound = false;
+            int nPos;
+            String sType;
+
+            do
+            {
+                nTries += 1;
+                nPos = rnd1.Next(1, 17);
+                sType = fHoletype(msShuffle3, nPos);
+                if (sType == "00")
+                {
+                    bFound = true;
+                }
+                if (nTries > 5)
+                {
+                    return 0;
+                }
+            } while (bFound == false);
+
+            return nPos;
+        }
         private String fHoletype(String sText,int nPos)
         {
             return sText.Substring(nPos * 2 - 2, 2);
@@ -134,6 +260,36 @@ namespace TSA
             String sText = null;
 
             sTwo = fHoletype(msShuffle2, nPos);
+            nValue = Convert.ToInt32(sTwo);
+            if (nValue == 0)
+            {
+                sText = "0";
+            }
+            else
+            {
+                switch (mnItem1)
+                {
+                    case 1:
+                        sText = _name[nValue - 1];
+                        break;
+                    case 2:
+                        sText = _tsa[nValue - 1];
+                        break;
+                    case 3:
+                        sText = Convert.ToString(_length[nValue - 1]);
+                        break;
+                }
+            }
+            return sText;
+
+        }
+        private String fText2(int nPos)
+        {
+            String sTwo;
+            int nValue;
+            String sText = null;
+
+            sTwo = fHoletype(msShuffle3, nPos);
             nValue = Convert.ToInt32(sTwo);
             if (nValue == 0)
             {
@@ -236,6 +392,153 @@ namespace TSA
             lbl65.Text = sText;
             sText = fText(36);
             lbl66.Text = sText;
+
+            //B
+            sText = fText2(1);
+            lblB11.Text = sText;
+            sText = fText2(2);
+            lblB12.Text = sText;
+            sText = fText2(3);
+            lblB13.Text = sText;
+            sText = fText2(4);
+            lblB14.Text = sText;
+
+            sText = fText2(5);
+            lblB21.Text = sText;
+            sText = fText2(6);
+            lblB22.Text = sText;
+            sText = fText2(7);
+            lblB23.Text = sText;
+            sText = fText2(8);
+            lblB24.Text = sText;
+
+            sText = fText2(9);
+            lblB31.Text = sText;
+            sText = fText2(10);
+            lblB32.Text = sText;
+            sText = fText2(11);
+            lblB33.Text = sText;
+            sText = fText2(12);
+            lblB34.Text = sText;
+
+            sText = fText2(13);
+            lblB41.Text = sText;
+            sText = fText2(14);
+            lblB42.Text = sText;
+            sText = fText2(15);
+            lblB43.Text = sText;
+            sText = fText2(16);
+            lblB44.Text = sText;
+
+        }
+
+        private int fSum(int nMode)
+        {
+            int nSum = 0;
+            int nType;
+
+            switch (nMode)
+            {
+                case 1:
+                    for (int i = 1; i <= 14; i++)
+                    {
+                        nSum += _length[i - 1];
+                    }
+                    break;
+                case 2:
+                    for (int i = 1; i <= 36; i++)
+                    {
+                        nType = Convert.ToInt32(fHoletype(msShuffle2, i));
+                        if (nType != 0)
+                        {
+                            nSum += _length[nType - 1];
+
+                        }
+                    }
+                    break;
+               default:
+                    for (int i = 1; i <= 16; i++)
+                    {
+                        nType = Convert.ToInt32(fHoletype(msShuffle3, i));
+                        if (nType != 0)
+                        {
+                            nSum += _length[nType - 1];
+                        }
+                    }
+                    break;
+
+            }
+
+            return nSum;
+        }
+
+        private decimal fAvg(int nMode)
+        {
+            int nSum = 0;
+            decimal nAvg = 0;
+            int nType;
+
+            switch (nMode)
+            {
+                case 1:
+                    for (int i = 1; i <= 14; i++)
+                    {
+                        nSum += _length[i - 1];
+                    }
+                    nAvg = nSum / 14;
+                    break;
+                 case 2:
+                    for (int i = 1; i <= 36; i++)
+                    {
+                        nType = Convert.ToInt32(fHoletype(msShuffle2, i));
+                        if (nType != 0)
+                        {
+                            nSum += _length[nType - 1];
+
+                        }
+                    }
+                    nAvg = nSum / 36;
+                    break;
+                 default:
+                    for (int i = 1; i <= 16; i++)
+                    {
+                        nType = Convert.ToInt32(fHoletype(msShuffle3, i));
+                        if (nType != 0)
+                        {
+                            nSum += _length[nType - 1];
+
+                        }
+                    }
+                    nAvg = nSum / 16;
+                    break;
+
+            }
+
+            return nAvg;
+        }
+        private void fUpdateStatus()
+        {
+            int nSum = fSum(1);
+            decimal nAvg = fAvg(1);
+
+            txtSum1.Text = Convert.ToString(nSum);
+            txtAvg1.Text = Convert.ToString(nAvg);
+
+            if (mbShow)
+            {
+                nSum = fSum(2);
+                nAvg = fAvg(2);
+                txtSum2.Text = Convert.ToString(nSum);
+                txtAvg2.Text = Convert.ToString(nAvg);
+            }
+            else
+            {
+                nSum = fSum(3);
+                nAvg = fAvg(3);
+                txtSum2.Text = Convert.ToString(nSum);
+                txtAvg2.Text = Convert.ToString(nAvg);
+
+            }
         }
 
         private void fUpdateList()
@@ -289,6 +592,10 @@ namespace TSA
         public fSub2()
         {
             InitializeComponent();
+            tab2.Left = tab1.Left;
+            tab2.Top = tab1.Top;
+            mbShow = true;
+            fShow(1);
         }
 
         private void fSub2_Load(object sender, EventArgs e)
@@ -629,6 +936,45 @@ namespace TSA
             mnItem2 = 14;
             fClick();
 
+        }
+
+        private void Btn1_Click(object sender, EventArgs e)
+        {
+            if (mbShow)
+            {
+                mbShow = false;
+                fShow(2);
+            }
+            else
+            {
+                mbShow = true;
+                fShow(1);
+
+            }
+            fUpdateStatus();
+        }
+
+        private void Btn2_Click(object sender, EventArgs e)
+        {
+            mnItem1++;
+            if (mnItem1 == 4)
+            {
+                mnItem1 = 1;
+            }
+            fUpdateDisplay();
+        }
+
+        private void Btn3_Click(object sender, EventArgs e)
+        {
+            msShuffle2 = fShuffle(msShuffle2);
+            msShuffle3 = fShuffle(msShuffle3);
+            fUpdateDisplay();
+        }
+
+        private void Btn4_Click(object sender, EventArgs e)
+        {
+            fReplay();
+            fUpdateStatus();
         }
 
         private void btnQNext_Click(object sender, EventArgs e)

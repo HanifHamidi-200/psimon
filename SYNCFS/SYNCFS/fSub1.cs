@@ -17,9 +17,40 @@ namespace SYNCFS
         private int nNumber;
         private int mnCol, mnRow, mnRotate;
         private int mnWin = 0;
+        private List<int> _heights = new List<int> { 0, 0, 0, 0, 0, 0, 0, 0 };
+        private List<int> _pos = new List<int> { 0, 0, 0, 0, 0, 0, 0, 0 };
+        private bool mbAllowdark, mbAutomatictimer;
+        private List<int> _teleport = new List<int> { 0, 0, 0, 0 };
 
+        private void fFloat()
+        {
+            int nTop;
+            String sTwo;
+            int nPos,nPos2;
+
+            for (int i = 1; i <= 8; i++)
+            {
+                nTop = _heights[i - 1];
+                nPos = _pos[i - 1];
+                nPos2 = (i - 1) * 10 + nPos;
+                sTwo = "01";
+                fPlace(sTwo, nPos2);
+                _pos[i - 1]++;
+                if (_pos[i - 1] > nTop)
+                {
+                    _pos[i - 1] = 1;
+                }
+                nPos2 = (i - 1) * 10 + nPos;
+                sTwo = "03";
+                fPlace(sTwo, nPos2);
+            }
+
+            fUpdateDisplay();
+        }
         private void fNav(int nMode)
         {
+            int nPos, nType;
+
             switch (nMode)
             {
                 case 1:
@@ -66,21 +97,141 @@ namespace SYNCFS
             }
             if (mnCol == 9)
             {
+                if (mbAllowdark == false)
+                {
+                    MessageBox.Show("You lose", "GEnd");
+                    fReset();
+                    goto endline;
+                }
                 mnCol = 1;
             }
             if (mnRow == 0)
             {
+                if (mbAllowdark == false)
+                {
+                    MessageBox.Show("You lose", "GEnd");
+                    fReset();
+                    goto endline;
+                }
                 mnRow = 10;
             }
             if (mnRow == 11)
             {
+                if (mbAllowdark == false)
+                {
+                    MessageBox.Show("You lose", "GEnd");
+                    fReset();
+                    goto endline;
+                }
                 mnRow = 1;
             }
 
+            nPos = (mnCol - 1) * 10 + mnRow;
+            nType = fHoletype(msShuffle2, nPos);
+
+            switch (nType)
+            {
+                case 1:
+                    break;
+                case 2:
+                    if (mbAllowdark == false)
+                    {
+                        MessageBox.Show("You lose", "GEnd");
+                        fReset();
+                        goto endline;
+                    }
+                    break;
+                case 3:
+                    MessageBox.Show("You lose", "GEnd");
+                    fReset();
+                    goto endline;
+                 case 4:
+                    fTeleportForward(ref mnCol, ref mnRow);
+                    break;
+            }
+
+            fUpdateDisplay();
+            fFloat();
             fUpdateDisplay();
 
             endline:;
         }
+
+        private int fMin(String sText,ref int nPos)
+        {
+            int nLength = sText.Length;
+            int nMin=100;
+            int nValue;
+
+            for (int i = 1; i <= nLength; i++)
+            {
+                nValue = Convert.ToInt32(sText.Substring(i - 1, 1));
+                if (nValue < nMin)
+                {
+                    nMin = nValue;
+                    nPos = i;
+                }
+            }
+
+            return nMin;
+        }
+
+        private String fSort(String sText)
+        {
+            int nLength = sText.Length;
+            String sText2 = null;
+            int nMin, nPos = 0;
+
+            do
+            {
+                nLength = sText.Length;
+                nMin = fMin(sText, ref nPos);
+                sText2 = sText + Convert.ToString(nMin);
+                sText = sText.Substring(0, nPos - 1) + sText.Substring(nPos, nLength - nPos);
+            } while (sText != null);
+
+            return sText2;
+        }
+        private void fTeleportForward(ref int nCol,ref int nRow)
+        {
+            String sCol = Convert.ToString(_teleport[0]) + Convert.ToString(_teleport[1]) + Convert.ToString(_teleport[2]) + Convert.ToString(_teleport[3]);
+            int nValue;
+            int nCol2=0,nRow2=0;
+            int nPos=0, nType;
+
+            sCol = fSort(sCol);
+            do
+            {
+                nPos++;
+                nValue = Convert.ToInt32(sCol.Substring(nPos - 1, 1));
+                if (nValue == nCol)
+                {
+                   if (nPos == 1)
+                    {
+                        nCol2 = nCol;
+                    }
+                    else
+                    {
+                        nCol2 = Convert.ToInt32(sCol.Substring(nPos - 2, 1));
+                    }
+                    nPos = 5;
+                }
+            } while (nPos <= 4);
+
+            for (int i = 1; i <= 10; i++)
+            {
+                nPos = (nCol2 - 1) * 10 + i;
+                nType = fHoletype(msShuffle2, nPos);
+                if (nType == 4)
+                {
+                    nRow2 = i;
+                }
+            }
+
+            nCol = nCol2;
+            nRow = nRow2;
+        }
+
 
         private void fWin()
         {
@@ -95,10 +246,14 @@ namespace SYNCFS
             int nPos2 = rnd1.Next(1, 4);
             int nPos;
             int nCol = 0, nRow = 0;
-            int nTop;
+            int nTop,nAdd;
 
             msShuffle = "0102030405060708091011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980";
             msShuffle2 = null;
+            mbAllowdark = false;
+            mbAutomatictimer = false;
+            btnAllowDark.Text = "AllowDark = OFF";
+            btnAutomaticTimer.Text = "AutomaticTimer = OFF";
 
             for (int i = 1; i <= 80; i++)
             {
@@ -106,9 +261,28 @@ namespace SYNCFS
                 msShuffle2 = msShuffle2 + sTwo;
             }
 
+            nTop = 3;
             for (int i = 1; i <= 8; i++)
             {
-                nTop = i + 3;
+                if (i == 1)
+                {
+                    _heights[0] = nTop;
+                }
+                else
+                {
+                    nAdd = rnd1.Next(0, 4);
+                    nTop += nAdd;
+                    _heights[i-1] = nTop;
+                    if (_heights[i - 1] > 10)
+                    {
+                        _heights[i - 1] = 10;
+                    }
+                }
+            }
+
+            for (int i = 1; i <= 8; i++)
+            {
+                nTop = _heights[i - 1];
                 for (int j = nTop; j <= 10; j++)
                 {
                     sTwo = "02";
@@ -121,6 +295,7 @@ namespace SYNCFS
             {
                 nCol = i;
                 fFree2(ref nCol, ref nRow);
+                _pos[i - 1] = nRow;
                 sTwo = "03";
                 nPos = (nCol - 1) * 8 + nRow;
                 fPlace(sTwo, nPos);
@@ -129,6 +304,7 @@ namespace SYNCFS
             for (int i = 1; i <= 4; i++)
             {
                 fFree(ref nCol, ref nRow);
+                _teleport[i - 1] = nCol;
                 sTwo = "04";
                 nPos = (nCol - 1) * 8 + nRow;
                 fPlace(sTwo, nPos);
@@ -792,16 +968,15 @@ namespace SYNCFS
         {
             Random rnd1 = new Random();
             bool bFound = false;
-            String sData;
-            int nValue;
+            int nPos, nType;
 
             do
             {
                 nCol = rnd1.Next(1, 9);
                 nRow = rnd1.Next(1, 11);
-                sData = fData(nCol, nRow);
-                nValue = Convert.ToInt32(sData);
-                if (nValue == 1)
+                nPos = (nCol - 1) * 10 + nRow;
+                nType = fHoletype(msShuffle2, nPos);
+                if (nType == 1)
                 {
                     bFound = true;
                 }
@@ -812,29 +987,23 @@ namespace SYNCFS
         {
             Random rnd1 = new Random();
             bool bFound = false;
-            String sData;
-            int nValue;
+            int nTop;
+            int nPos, nType;
 
             do
             {
-                nRow = rnd1.Next(1, nCol + 4);
-                sData = fData(nCol, nRow);
-                nValue = Convert.ToInt32(sData);
-                if (nValue == 1)
+                nTop = _heights[nCol - 1];
+                nRow = rnd1.Next(1, nTop+1);
+                nPos = (nCol - 1) * 10 + nRow;
+                nType = fHoletype(msShuffle2, nPos);
+                if (nType == 1)
                 {
                     bFound = true;
                 }
             } while (bFound == false);
         }
-        private String fData(int nCol, int nRow)
-        {
-            int nPos = (nCol - 1) * 8 + nRow;
-            String sTwo = msShuffle2.Substring(nPos * 2 - 2, 2);
 
-            return sTwo;
-        }
-
-       private void btnQNext_Click_1(object sender, EventArgs e)
+        private void btnQNext_Click_1(object sender, EventArgs e)
         {
             fReset();
 
@@ -873,6 +1042,34 @@ namespace SYNCFS
         private void btnNav7_Click(object sender, EventArgs e)
         {
             fNav(7);
+        }
+
+        private void BtnAllowDark_Click(object sender, EventArgs e)
+        {
+            if (mbAllowdark)
+            {
+                mbAllowdark = false;
+                btnAllowDark.Text = "AllowDark = OFF";
+            }
+            else
+            {
+                mbAllowdark = true;
+                btnAllowDark.Text = "AllowDark = ON";
+            }
+        }
+
+        private void BtnAutomaticTimer_Click(object sender, EventArgs e)
+        {
+            if (mbAutomatictimer)
+            {
+                mbAutomatictimer = false;
+                btnAutomaticTimer.Text = "Automatictimer = OFF";
+            }
+            else
+            {
+                mbAutomatictimer = true;
+                btnAutomaticTimer.Text = "Automatictimer = ON";
+            }
         }
 
         private void btnNav8_Click(object sender, EventArgs e)

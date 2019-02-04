@@ -18,6 +18,113 @@ namespace WDOOR
         private int mnCol, mnRow, mnRotate;
         private int mnWin = 0;
 
+        private int fCount()
+        {
+            int nPos, nType;
+            int nCount = 0;
+
+            for (int i = 1; i <= 8; i++)
+            {
+                for (int j = 1; j <= 8; j++)
+                {
+                    nPos = (i - 1) * 8 + j;
+                    nType = fHoletype(msShuffle2, nPos);
+                    if (nType == 3)
+                    {
+                        nCount++;
+                    }
+                }
+            }
+
+            return nCount;
+        }
+        private void fNav(int nMode)
+        {
+            Random rnd1 = new Random();
+            int nCol = mnCol;
+            int nRow = mnRow;
+            int nPos, nType;
+      
+            switch (nMode)
+            {
+                case 1:
+                    nRow--;
+                    if (nRow == 0)
+                    {
+                        nRow = 8;
+                    }
+                    break;
+                case 2:
+                    nCol++;
+                    if (nCol == 9)
+                    {
+                        nCol = 1;
+                    }
+                    break;
+                case 3:
+                    nRow++;
+                    if (nRow == 9)
+                    {
+                        nRow = 1;
+                    }
+                    break;
+                default:
+                    nCol--;
+                    if (nCol == 0)
+                    {
+                        nCol = 8;
+                    }
+                    break;
+            }
+            nPos = (nCol - 1) * 8 + nRow;
+            nType = fHoletype(msShuffle2, nPos);
+            if (nType == 3)
+            {
+                fMatrix _dlg = new fMatrix();
+                _dlg.ShowDialog();
+            }
+
+            nPos = (mnCol - 1) * 8 + mnRow;
+            if (fInside())
+            {
+                fPlace("02", nPos);
+                fIcon(2, 1, mnCol, mnRow);
+            }
+            else
+            {
+                fPlace("01", nPos);
+                fIcon(1, 1, mnCol, mnRow);
+            }
+            mnCol = nCol;
+            mnRow = nRow;
+            mnRotate = nMode;
+            fIcon(5, mnRotate, mnCol, mnRow);
+        
+        }
+
+        private bool fInside()
+        {
+            bool bInside = true;
+
+            if (mnCol <= 2)
+            {
+                bInside = false;
+            }
+            if (mnCol >=7)
+            {
+                bInside = false;
+            }
+            if (mnRow <= 2)
+            {
+                bInside = false;
+            }
+            if (mnRow >= 7)
+            {
+                bInside = false;
+            }
+
+            return bInside;
+        }
         private void fReset()
         {
             Random rnd1 = new Random();
@@ -145,7 +252,7 @@ namespace WDOOR
                 nRow = rnd1.Next(1, 9);
                 nPos = (nCol - 1) * 8 + nRow;
                 nType = fHoletype(msShuffle2, nPos);
-                if (nType <= 2)
+                if (nType ==1)
                 {
                     bFound = true;
                 }
@@ -627,6 +734,36 @@ namespace WDOOR
         private void btnQNext_Click(object sender, EventArgs e)
         {
             fReset();
+        }
+
+        private void BtnNav1_Click(object sender, EventArgs e)
+        {
+            fNav(1);
+        }
+
+        private void BtnNav2_Click(object sender, EventArgs e)
+        {
+            fNav(2);
+        }
+
+        private void BtnNav3_Click(object sender, EventArgs e)
+        {
+            fNav(3);
+        }
+
+        private void BtnNav4_Click(object sender, EventArgs e)
+        {
+            fNav(4);
+        }
+
+        private void BtnComply_Click(object sender, EventArgs e)
+        {
+            int nCount = fCount();
+
+            if (nCount == 0)
+            {
+                fReset();
+            }
         }
 
         public fSub2()

@@ -95,6 +95,11 @@
             this.pic31 = new System.Windows.Forms.PictureBox();
             this.pic21 = new System.Windows.Forms.PictureBox();
             this.pic11 = new System.Windows.Forms.PictureBox();
+            this.btnNav3 = new System.Windows.Forms.Button();
+            this.btnNav2 = new System.Windows.Forms.Button();
+            this.btnNav4 = new System.Windows.Forms.Button();
+            this.btnNav1 = new System.Windows.Forms.Button();
+            this.btnComply = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic88)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic78)).BeginInit();
@@ -165,7 +170,7 @@
             // btnQNext
             // 
             this.btnQNext.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.btnQNext.Location = new System.Drawing.Point(514, 12);
+            this.btnQNext.Location = new System.Drawing.Point(508, 12);
             this.btnQNext.Name = "btnQNext";
             this.btnQNext.Size = new System.Drawing.Size(96, 88);
             this.btnQNext.TabIndex = 12;
@@ -903,11 +908,71 @@
             this.pic11.TabIndex = 0;
             this.pic11.TabStop = false;
             // 
+            // btnNav3
+            // 
+            this.btnNav3.BackColor = System.Drawing.Color.Yellow;
+            this.btnNav3.Location = new System.Drawing.Point(554, 155);
+            this.btnNav3.Name = "btnNav3";
+            this.btnNav3.Size = new System.Drawing.Size(40, 38);
+            this.btnNav3.TabIndex = 23;
+            this.btnNav3.Text = "^";
+            this.btnNav3.UseVisualStyleBackColor = false;
+            this.btnNav3.Click += new System.EventHandler(this.BtnNav3_Click);
+            // 
+            // btnNav2
+            // 
+            this.btnNav2.BackColor = System.Drawing.Color.Yellow;
+            this.btnNav2.Location = new System.Drawing.Point(600, 155);
+            this.btnNav2.Name = "btnNav2";
+            this.btnNav2.Size = new System.Drawing.Size(40, 38);
+            this.btnNav2.TabIndex = 22;
+            this.btnNav2.Text = "^";
+            this.btnNav2.UseVisualStyleBackColor = false;
+            this.btnNav2.Click += new System.EventHandler(this.BtnNav2_Click);
+            // 
+            // btnNav4
+            // 
+            this.btnNav4.BackColor = System.Drawing.Color.Yellow;
+            this.btnNav4.Location = new System.Drawing.Point(508, 155);
+            this.btnNav4.Name = "btnNav4";
+            this.btnNav4.Size = new System.Drawing.Size(40, 38);
+            this.btnNav4.TabIndex = 21;
+            this.btnNav4.Text = "^";
+            this.btnNav4.UseVisualStyleBackColor = false;
+            this.btnNav4.Click += new System.EventHandler(this.BtnNav4_Click);
+            // 
+            // btnNav1
+            // 
+            this.btnNav1.BackColor = System.Drawing.Color.Yellow;
+            this.btnNav1.Location = new System.Drawing.Point(554, 108);
+            this.btnNav1.Name = "btnNav1";
+            this.btnNav1.Size = new System.Drawing.Size(40, 38);
+            this.btnNav1.TabIndex = 20;
+            this.btnNav1.Text = "^";
+            this.btnNav1.UseVisualStyleBackColor = false;
+            this.btnNav1.Click += new System.EventHandler(this.BtnNav1_Click);
+            // 
+            // btnComply
+            // 
+            this.btnComply.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnComply.Location = new System.Drawing.Point(610, 12);
+            this.btnComply.Name = "btnComply";
+            this.btnComply.Size = new System.Drawing.Size(96, 88);
+            this.btnComply.TabIndex = 24;
+            this.btnComply.Text = "comply";
+            this.btnComply.UseVisualStyleBackColor = false;
+            this.btnComply.Click += new System.EventHandler(this.BtnComply_Click);
+            // 
             // fSub2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 516);
+            this.Controls.Add(this.btnComply);
+            this.Controls.Add(this.btnNav3);
+            this.Controls.Add(this.btnNav2);
+            this.Controls.Add(this.btnNav4);
+            this.Controls.Add(this.btnNav1);
             this.Controls.Add(this.btnQNext);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "fSub2";
@@ -1050,5 +1115,10 @@
         private System.Windows.Forms.PictureBox pic31;
         private System.Windows.Forms.PictureBox pic21;
         private System.Windows.Forms.PictureBox pic11;
+        private System.Windows.Forms.Button btnNav3;
+        private System.Windows.Forms.Button btnNav2;
+        private System.Windows.Forms.Button btnNav4;
+        private System.Windows.Forms.Button btnNav1;
+        private System.Windows.Forms.Button btnComply;
     }
 }

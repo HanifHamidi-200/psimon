@@ -54,6 +54,64 @@ namespace WDOOR
             }
             return false;
         }
+        private void fNav2(int nMode)
+        {
+            Random rnd1 = new Random();
+            int nCol = mnCol;
+            int nRow = mnRow;
+            int nPos, nType;
+       
+            switch (nMode)
+            {
+                case 1:
+                    nCol++;
+                    nRow--;
+                    break;
+                case 2:
+                    nCol++;
+                    nRow++;
+                    break;
+                case 3:
+                    nCol--;
+                    nRow++;
+                    break;
+                default:
+                    nCol--;
+                    nRow--;
+                    break;
+            }
+            if (nCol == 9)
+            {
+                nCol = 1;
+            }
+            else if (nCol == 0)
+            {
+                nCol = 8;
+            }
+            if (nRow == 9)
+            {
+                nRow = 1;
+            }
+            else if (nRow == 0)
+            {
+                nRow = 8;
+            }
+            nPos = (nCol - 1) * 8 + nRow;
+            nType = fHoletype(msShuffle2, nPos);
+            if (nType == 3)
+            {
+                mnWin++;
+                MessageBox.Show("You win", "GWin"+Convert.ToString(mnWin));
+                fReset();
+            }
+            else
+            {
+                MessageBox.Show("You lose", "GEnd");
+                fReset();
+            }
+
+         }
+
         private void fNav(int nMode)
         {
             Random rnd1 = new Random();
@@ -99,8 +157,7 @@ namespace WDOOR
             nType = fHoletype(msShuffle2, nPos);
             if (nType == 3)
             {
-                mnWin += 1;
-                MessageBox.Show("You win", "GWin" + Convert.ToString(mnWin));
+                 MessageBox.Show("You lose", "GEnd");
                 fReset();
                 goto endline;
             }
@@ -869,6 +926,26 @@ namespace WDOOR
         {
             fNav(4);
 
+        }
+
+        private void BtnNav21_Click(object sender, EventArgs e)
+        {
+            fNav2(1);
+        }
+
+        private void BtnNav22_Click(object sender, EventArgs e)
+        {
+            fNav2(2);
+        }
+
+        private void BtnNav23_Click(object sender, EventArgs e)
+        {
+            fNav2(3);
+        }
+
+        private void BtnNav24_Click(object sender, EventArgs e)
+        {
+            fNav2(4);
         }
 
         private void btnQNext_Click_1(object sender, EventArgs e)

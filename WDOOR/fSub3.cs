@@ -18,6 +18,178 @@ namespace WDOOR
         private int mnCol, mnRow, mnRotate;
         private int mnWin = 0;
 
+        private void fNewCoordinates(int nDirection, ref int nCol,ref int  nRow,ref bool bAbort,ref bool bWin)
+        {
+            int nTries = 0;
+            bool bFound = false;
+            int nPos, nType;
+
+            do
+            {
+                nTries++;
+                if (nTries > 5)
+                {
+                    bFound = true;
+                    bAbort = true;
+                }
+                else
+                {
+                    switch (nDirection)
+                    {
+                        case 1:
+                            nRow--;
+                            if (nRow == 0)
+                            {
+                                bFound = true;
+                                bAbort = true;
+                            }
+                            else
+                            {
+                                nPos = (nCol - 1) * 10 + nRow;
+                                nType = fHoletype(msShuffle2, nPos);
+                                switch (nType)
+                                {
+                                    case 1:
+                                        bFound = true;
+                                        break;
+                                    case 2:
+                                        bWin = true;
+                                        MessageBox.Show("You win", "GWin");
+                                        fReset();
+                                        break;
+                                    case 3:
+                                        bFound = true;
+                                        fPlace("01", nPos);
+                                        break;
+                                    case 4:
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            break;
+                        case 2:
+                            nCol++;
+                            if (nCol == 9)
+                            {
+                                bFound = true;
+                                bAbort = true;
+                            }
+                            else
+                            {
+                                nPos = (nCol - 1) * 10 + nRow;
+                                nType = fHoletype(msShuffle2, nPos);
+                                switch (nType)
+                                {
+                                    case 1:
+                                        bFound = true;
+                                        break;
+                                    case 2:
+                                        bWin = true;
+                                        MessageBox.Show("You win", "GWin");
+                                        fReset();
+                                        break;
+                                    case 3:
+                                        bFound = true;
+                                        fPlace("01", nPos);
+                                        break;
+                                    case 4:
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            break;
+                        case 3:
+                            nRow++;
+                            if (nRow == 11)
+                            {
+                                bFound = true;
+                                bAbort = true;
+                            }
+                            else
+                            {
+                                nPos = (nCol - 1) * 10 + nRow;
+                                nType = fHoletype(msShuffle2, nPos);
+                                switch (nType)
+                                {
+                                    case 1:
+                                        bFound = true;
+                                        break;
+                                    case 2:
+                                        bWin = true;
+                                        MessageBox.Show("You win", "GWin");
+                                        fReset();
+                                        break;
+                                    case 3:
+                                        bFound = true;
+                                        fPlace("01", nPos);
+                                        break;
+                                    case 4:
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            break;
+                       default:
+                            nCol--;
+                            if (nCol == 0)
+                            {
+                                bFound = true;
+                                bAbort = true;
+                            }
+                            else
+                            {
+                                nPos = (nCol - 1) * 10 + nRow;
+                                nType = fHoletype(msShuffle2, nPos);
+                                switch (nType)
+                                {
+                                    case 1:
+                                        bFound = true;
+                                        break;
+                                    case 2:
+                                        bWin = true;
+                                        MessageBox.Show("You win", "GWin");
+                                        fReset();
+                                        break;
+                                    case 3:
+                                        bFound = true;
+                                        fPlace("01", nPos);
+                                        break;
+                                    case 4:
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            break;
+                    }
+                }
+            } while (bFound == false);
+        }
+        private void fNav(int nMode)
+        {
+            int nCol = mnCol, nRow = mnRow;
+            bool bAbort = false;
+            bool bWin = false;
+
+            fNewCoordinates(nMode, ref nCol, ref nRow, ref bAbort,ref bWin);
+            if (bWin)
+            {
+                goto endline;
+            }
+            if (bAbort)
+            {
+                goto endline;
+            }
+            mnCol = nCol;
+            mnRow = nRow;
+            mnRotate = nMode;
+            fUpdateDisplay();
+
+        endline:;
+        }
         private void fReset()
         {
             Random rnd1 = new Random();
@@ -735,6 +907,26 @@ namespace WDOOR
         private void btnQNext_Click(object sender, EventArgs e)
         {
             fReset();
+        }
+
+        private void BtnNav1_Click(object sender, EventArgs e)
+        {
+            fNav(1);
+        }
+
+        private void BtnNav2_Click(object sender, EventArgs e)
+        {
+            fNav(2);
+        }
+
+        private void BtnNav3_Click(object sender, EventArgs e)
+        {
+            fNav(3);
+        }
+
+        private void BtnNav4_Click(object sender, EventArgs e)
+        {
+            fNav(4);
         }
 
         public fSub3()

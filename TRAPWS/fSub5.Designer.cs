@@ -91,57 +91,63 @@
             // 
             // button11
             // 
+            this.button11.BackColor = System.Drawing.Color.Red;
             this.button11.Location = new System.Drawing.Point(3, 3);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(109, 56);
             this.button11.TabIndex = 0;
             this.button11.Text = "EgyptUN";
-            this.button11.UseVisualStyleBackColor = true;
+            this.button11.UseVisualStyleBackColor = false;
             // 
             // button12
             // 
+            this.button12.BackColor = System.Drawing.Color.Fuchsia;
             this.button12.Location = new System.Drawing.Point(3, 65);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(109, 56);
             this.button12.TabIndex = 1;
             this.button12.Text = "TurkeyNATO";
-            this.button12.UseVisualStyleBackColor = true;
+            this.button12.UseVisualStyleBackColor = false;
             // 
             // button15
             // 
+            this.button15.BackColor = System.Drawing.Color.Aqua;
             this.button15.Location = new System.Drawing.Point(3, 127);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(109, 56);
             this.button15.TabIndex = 2;
             this.button15.Text = "FOGGISDerailis";
-            this.button15.UseVisualStyleBackColor = true;
+            this.button15.UseVisualStyleBackColor = false;
             // 
             // button16
             // 
+            this.button16.BackColor = System.Drawing.Color.Red;
             this.button16.Location = new System.Drawing.Point(3, 189);
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(109, 56);
             this.button16.TabIndex = 3;
             this.button16.Text = "Presentations";
-            this.button16.UseVisualStyleBackColor = true;
+            this.button16.UseVisualStyleBackColor = false;
             // 
             // button18
             // 
+            this.button18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.button18.Location = new System.Drawing.Point(3, 251);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(109, 56);
             this.button18.TabIndex = 4;
             this.button18.Text = "FileOrganisation";
-            this.button18.UseVisualStyleBackColor = true;
+            this.button18.UseVisualStyleBackColor = false;
             // 
             // button19
             // 
+            this.button19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.button19.Location = new System.Drawing.Point(3, 313);
             this.button19.Name = "button19";
             this.button19.Size = new System.Drawing.Size(109, 56);
             this.button19.TabIndex = 5;
             this.button19.Text = "Purgutory5";
-            this.button19.UseVisualStyleBackColor = true;
+            this.button19.UseVisualStyleBackColor = false;
             // 
             // flowLayoutPanel4
             // 
@@ -155,21 +161,23 @@
             // 
             // button13
             // 
+            this.button13.BackColor = System.Drawing.Color.Red;
             this.button13.Location = new System.Drawing.Point(3, 3);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(109, 56);
             this.button13.TabIndex = 0;
             this.button13.Text = "IzmirBusiness\r\nTowers";
-            this.button13.UseVisualStyleBackColor = true;
+            this.button13.UseVisualStyleBackColor = false;
             // 
             // button14
             // 
+            this.button14.BackColor = System.Drawing.Color.Red;
             this.button14.Location = new System.Drawing.Point(118, 3);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(109, 56);
             this.button14.TabIndex = 1;
             this.button14.Text = "OsakaBusiness\r\nTowers\r\n";
-            this.button14.UseVisualStyleBackColor = true;
+            this.button14.UseVisualStyleBackColor = false;
             // 
             // label4
             // 
@@ -194,21 +202,23 @@
             // 
             // button9
             // 
+            this.button9.BackColor = System.Drawing.Color.Red;
             this.button9.Location = new System.Drawing.Point(3, 3);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(109, 56);
             this.button9.TabIndex = 0;
             this.button9.Text = "biasedINFOYS";
-            this.button9.UseVisualStyleBackColor = true;
+            this.button9.UseVisualStyleBackColor = false;
             // 
             // button10
             // 
+            this.button10.BackColor = System.Drawing.Color.Red;
             this.button10.Location = new System.Drawing.Point(118, 3);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(109, 56);
             this.button10.TabIndex = 1;
             this.button10.Text = "procuredBELIT";
-            this.button10.UseVisualStyleBackColor = true;
+            this.button10.UseVisualStyleBackColor = false;
             // 
             // flowLayoutPanel2
             // 
@@ -225,48 +235,53 @@
             // 
             // button5
             // 
+            this.button5.BackColor = System.Drawing.Color.Lime;
             this.button5.Location = new System.Drawing.Point(3, 3);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(109, 56);
             this.button5.TabIndex = 0;
             this.button5.Text = "NAYTUR";
-            this.button5.UseVisualStyleBackColor = true;
+            this.button5.UseVisualStyleBackColor = false;
             // 
             // button6
             // 
+            this.button6.BackColor = System.Drawing.Color.Fuchsia;
             this.button6.Location = new System.Drawing.Point(118, 3);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(109, 56);
             this.button6.TabIndex = 1;
             this.button6.Text = "IGDEM";
-            this.button6.UseVisualStyleBackColor = true;
+            this.button6.UseVisualStyleBackColor = false;
             // 
             // button7
             // 
+            this.button7.BackColor = System.Drawing.Color.Red;
             this.button7.Location = new System.Drawing.Point(233, 3);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(109, 56);
             this.button7.TabIndex = 2;
             this.button7.Text = "FAUCET";
-            this.button7.UseVisualStyleBackColor = true;
+            this.button7.UseVisualStyleBackColor = false;
             // 
             // button8
             // 
+            this.button8.BackColor = System.Drawing.Color.Red;
             this.button8.Location = new System.Drawing.Point(348, 3);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(109, 56);
             this.button8.TabIndex = 3;
             this.button8.Text = "SSWORD";
-            this.button8.UseVisualStyleBackColor = true;
+            this.button8.UseVisualStyleBackColor = false;
             // 
             // button17
             // 
+            this.button17.BackColor = System.Drawing.Color.Aqua;
             this.button17.Location = new System.Drawing.Point(463, 3);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(109, 56);
             this.button17.TabIndex = 4;
             this.button17.Text = "DBENCH";
-            this.button17.UseVisualStyleBackColor = true;
+            this.button17.UseVisualStyleBackColor = false;
             // 
             // label2
             // 
@@ -293,39 +308,43 @@
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.button1.Location = new System.Drawing.Point(3, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(109, 56);
             this.button1.TabIndex = 0;
             this.button1.Text = "Airports/Ports";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.button2.Location = new System.Drawing.Point(118, 3);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(109, 56);
             this.button2.TabIndex = 1;
             this.button2.Text = "Banks";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             // 
             // button3
             // 
+            this.button3.BackColor = System.Drawing.Color.Aqua;
             this.button3.Location = new System.Drawing.Point(233, 3);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(109, 56);
             this.button3.TabIndex = 2;
             this.button3.Text = "Clothesshop";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             // 
             // button4
             // 
+            this.button4.BackColor = System.Drawing.Color.Lime;
             this.button4.Location = new System.Drawing.Point(348, 3);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(109, 56);
             this.button4.TabIndex = 3;
             this.button4.Text = "MMPOWorkhouse";
-            this.button4.UseVisualStyleBackColor = true;
+            this.button4.UseVisualStyleBackColor = false;
             // 
             // label1
             // 

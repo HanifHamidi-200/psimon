@@ -33,6 +33,7 @@
             this.btnOpen3 = new System.Windows.Forms.Button();
             this.btnOpen4 = new System.Windows.Forms.Button();
             this.btnOpen5 = new System.Windows.Forms.Button();
+            this.btnOpen7 = new System.Windows.Forms.Button();
             this.btnOpen6 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -91,23 +92,35 @@
             this.btnOpen5.UseVisualStyleBackColor = false;
             this.btnOpen5.Click += new System.EventHandler(this.btnOpen5_Click);
             // 
+            // btnOpen7
+            // 
+            this.btnOpen7.BackColor = System.Drawing.Color.Yellow;
+            this.btnOpen7.Location = new System.Drawing.Point(27, 282);
+            this.btnOpen7.Name = "btnOpen7";
+            this.btnOpen7.Size = new System.Drawing.Size(258, 35);
+            this.btnOpen7.TabIndex = 5;
+            this.btnOpen7.Text = "DQWALK";
+            this.btnOpen7.UseVisualStyleBackColor = false;
+            this.btnOpen7.Click += new System.EventHandler(this.BtnOpen7_Click);
+            // 
             // btnOpen6
             // 
             this.btnOpen6.BackColor = System.Drawing.Color.Yellow;
-            this.btnOpen6.Location = new System.Drawing.Point(27, 240);
+            this.btnOpen6.Location = new System.Drawing.Point(27, 241);
             this.btnOpen6.Name = "btnOpen6";
             this.btnOpen6.Size = new System.Drawing.Size(258, 35);
-            this.btnOpen6.TabIndex = 5;
-            this.btnOpen6.Text = "DQWALK";
+            this.btnOpen6.TabIndex = 6;
+            this.btnOpen6.Text = "[BASES]";
             this.btnOpen6.UseVisualStyleBackColor = false;
-            this.btnOpen6.Click += new System.EventHandler(this.BtnOpen6_Click);
+            this.btnOpen6.Click += new System.EventHandler(this.BtnOpen6_Click_1);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(316, 310);
+            this.ClientSize = new System.Drawing.Size(316, 348);
             this.Controls.Add(this.btnOpen6);
+            this.Controls.Add(this.btnOpen7);
             this.Controls.Add(this.btnOpen5);
             this.Controls.Add(this.btnOpen4);
             this.Controls.Add(this.btnOpen3);
@@ -127,6 +140,7 @@
         private System.Windows.Forms.Button btnOpen3;
         private System.Windows.Forms.Button btnOpen4;
         private System.Windows.Forms.Button btnOpen5;
+        private System.Windows.Forms.Button btnOpen7;
         private System.Windows.Forms.Button btnOpen6;
     }
 }
